@@ -38,9 +38,12 @@ vec4 ultraFractalColor(int n, int index) {
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	float x = -0.743643887037158704752191506114774;
-	float y = 0.131825904205311970493132056385139;
+	float x = -0.7412497590381871281906;
+	float y = 0.119234434038571909808546;
 	float zoom = pow(TIME,TIME);
+	if (zoom >= 9403.955) {
+		zoom = 9403.955;
+	}
 	float cy,cx,zy,zx;
 	float aspectRatio = SCREEN_PIXEL_SIZE.x / SCREEN_PIXEL_SIZE.y;
 	cx = mapRange(0.0, 1.0, x-2.0/aspectRatio/zoom, x+2.0/aspectRatio/zoom, UV.x);
