@@ -4,30 +4,8 @@ render_mode unshaded;
 uniform int iterations = 0;
 uniform float factor = 0;
 uniform vec2 position = vec2(-0.7412497590381871281906, 0.119234434038571909808546);
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
 
-float mapRange(float a1, float a2, float b1, float b2, float s) {
-	return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
-}
-
-float complexAbsSqr(vec2 z) {
-	// Idk why the +1.0 on there fixes it, and frankly, I don't care
-	return z.x * z.x + z.y * z.y+1.0;
-}
-
-int ultraFractalColorIndex(float n, vec2 z) {
-	float index;
-    if (n < float(iterations)) {
-		float i = float(n + 1.0 - log(log(complexAbsSqr(z)) / log(1024.0)) / log(2.0));
-		index = mod(((200.0*sqrt(i))),2000.0);
-    }
-    return int(index);  // Or any default color index if n >= iterations
-}
-
-vec4 ultraFractalColor(int n, int index) {
-	int deadColorArrayRGB[6000] = {14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14
+const lowp int deadColorArrayRGB[6000] = {14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14
 	,0,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,60,14,1,61,14,1,61,14,2,61,15,2,61,15,2,61,15,2
 	,61,15,2,61,15,2,61,15,2,61,15,2,61,15,2,62,15,2,62,15,2,62,15,3,62,15,3,62,15,3,62,15,3,62,15,3,62,15,3,62,15,3,63,15,3,63,15,3,63,15,4,63,15,4,63,15,4,63,15,4,63
 	,15,4,64,15,4,64,15,4,64,15,4,64,15,5,64,15,5,64,16,5,64,16,5,65,16,5,65,16,5,65,16,5,65,16,6,65,16,6,65,16,6,66,16,6,66,16,6,66,16,6,66,16,6,66,16,7,66,16,7,67,16
@@ -126,6 +104,30 @@ vec4 ultraFractalColor(int n, int index) {
 	,30,4,53,30,4,53,29,4,54,28,4,54,28,3,54,27,3,54,27,3,54,26,3,55,26,3,55,25,3,55,24,3,55,24,2,55,23,2,56,23,2,56,22,2,56,22,2,56,21,2,56,21,2,56,21,2,57,20,2,57,20
 	,1,57,19,1,57,19,1,57,19,1,57,18,1,57,18,1,58,18,1,58,17,1,58,17,1,58,17,1,58,16,1,58,16,1,58,16,0,58,16,0,58,15,0,58,15,0,59,15,0,59,15,0,59,15,0,59,15,0,59,14,0
 	,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59,14,0,59};
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+float mapRange(float a1, float a2, float b1, float b2, float s) {
+	return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+}
+
+float complexAbsSqr(vec2 z) {
+	// Idk why the +1.0 on there fixes it, and frankly, I don't care
+	return z.x * z.x + z.y * z.y+1.0;
+}
+
+int ultraFractalColorIndex(float n, vec2 z) {
+	float index;
+    if (n < float(iterations)) {
+		float i = float(n + 1.0 - log(log(complexAbsSqr(z)) / log(1024.0)) / log(2.0));
+		index = mod(((200.0*sqrt(i))),2000.0);
+    }
+    return int(index);  // Or any default color index if n >= iterations
+}
+
+vec4 ultraFractalColor(int n, int index) {
 	index = index*3;
 	vec4 result = vec4(0.0,0.0,0.0,1.0);
 	if (n < iterations) {

@@ -4,9 +4,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mwhae"]
 shader = ExtResource("1_ytxxp")
-shader_parameter/iterations = 50
-shader_parameter/factor = 50.0
-shader_parameter/position = Vector2(-0.743644, 0.131826)
+shader_parameter/iterations = 0
+shader_parameter/factor = 0.0
+shader_parameter/position = Vector2(-0.74125, 0.119234)
 
 [node name="Node2D" type="Node2D"]
 
